@@ -59,12 +59,22 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define A0_TRIG_IN_TIM2_Pin GPIO_PIN_0
-#define A0_TRIG_IN_TIM2_GPIO_Port GPIOA
+#define TIM2_CH1_PWM_Pin GPIO_PIN_0
+#define TIM2_CH1_PWM_GPIO_Port GPIOA
+#define TIM2_CH2_PA1_INPUT_CAPTURE_Pin GPIO_PIN_1
+#define TIM2_CH2_PA1_INPUT_CAPTURE_GPIO_Port GPIOA
+#define TIM2_CH1_PWM_PA2_Pin GPIO_PIN_2
+#define TIM2_CH1_PWM_PA2_GPIO_Port GPIOA
+#define B12_SWITCH_Pin GPIO_PIN_12
+#define B12_SWITCH_GPIO_Port GPIOB
+#define B13_RED_PITCH_LED_Pin GPIO_PIN_13
+#define B13_RED_PITCH_LED_GPIO_Port GPIOB
+#define B14_GREEN_PITCH_LED_Pin GPIO_PIN_14
+#define B14_GREEN_PITCH_LED_GPIO_Port GPIOB
 #define A8_TRIG_IN_Pin GPIO_PIN_8
 #define A8_TRIG_IN_GPIO_Port GPIOA
-#define A9_INPUT_Pin GPIO_PIN_9
-#define A9_INPUT_GPIO_Port GPIOA
+#define TIM1_CH1_PA9_INPUT_CAPTURE_Pin GPIO_PIN_9
+#define TIM1_CH1_PA9_INPUT_CAPTURE_GPIO_Port GPIOA
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
