@@ -31,24 +31,10 @@ typedef enum note_name {
 	NOTE_C, NOTE_D, NOTE_E, NOTE_F, NOTE_G, NOTE_A, NOTE_C2, NOTE_BB
 } NOTE_NAME;
 
-typedef enum hole {
-	THUMB,
-	FINGER_1,
-	FINGER_2,
-	FINGER_3,
-	FINGER_4,
-	FINGER_5,
-	FINGER_6,
-	FINGER_7,
-	FINGER_8
-} HOLE;
-typedef enum servo_position {
-	OPEN_POS = 25, CLOSE_POS = 40
-} SERVO_POSITION;
 typedef struct note {
 	NOTE_NAME name;
 	uint32_t central_freq;
-	int holes_to_play[9];
+	int holes_to_play[7];
 } NOTE;
 
 /* USER CODE END PTD */
@@ -95,36 +81,51 @@ const uint32_t CTR_FREQ[8] = { 2150, 2450, 2750, 3050, 3350, 3650, 3950, 4250 };
 
 uint32_t pitch_val = { 0 };
 
+const uint32_t BACK_ROW_CLOSE_POS = 40;
+const uint32_t BACK_ROW_OPEN_POS = 25;
+
+const uint32_t FRONT_ROW_CLOSE_POS = 25;
+const uint32_t FRONT_ROW_OPEN_POS = 40;
+
 //Hard coded notes to play
 const NOTE note_c = { .name = NOTE_C, .central_freq = CTR_FREQ[0],
-		.holes_to_play = { CLOSE_POS, CLOSE_POS, CLOSE_POS, CLOSE_POS,
-				CLOSE_POS, CLOSE_POS, CLOSE_POS, CLOSE_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
+				BACK_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS, BACK_ROW_CLOSE_POS,
+				FRONT_ROW_CLOSE_POS, BACK_ROW_CLOSE_POS } };
 const NOTE note_d = { .name = NOTE_D, .central_freq = CTR_FREQ[1],
-		.holes_to_play = { CLOSE_POS, CLOSE_POS, CLOSE_POS, CLOSE_POS,
-				CLOSE_POS, CLOSE_POS, CLOSE_POS, OPEN_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
+				BACK_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS, BACK_ROW_CLOSE_POS,
+				FRONT_ROW_CLOSE_POS, BACK_ROW_OPEN_POS } };
 const NOTE note_e = { .name = NOTE_E, .central_freq = CTR_FREQ[2],
-		.holes_to_play = { CLOSE_POS, CLOSE_POS, CLOSE_POS, CLOSE_POS,
-				CLOSE_POS, CLOSE_POS, CLOSE_POS, OPEN_POS, OPEN_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
+				BACK_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS, BACK_ROW_CLOSE_POS,
+				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
 const NOTE note_f = { .name = NOTE_F, .central_freq = CTR_FREQ[3],
-		.holes_to_play = { CLOSE_POS, CLOSE_POS, CLOSE_POS, CLOSE_POS,
-				CLOSE_POS, CLOSE_POS, OPEN_POS, CLOSE_POS, CLOSE_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
+				BACK_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS, BACK_ROW_OPEN_POS,
+				FRONT_ROW_CLOSE_POS, BACK_ROW_CLOSE_POS } };
 const NOTE note_g = { .name = NOTE_G, .central_freq = CTR_FREQ[4],
-		.holes_to_play = { CLOSE_POS, CLOSE_POS, CLOSE_POS, CLOSE_POS, OPEN_POS,
-				OPEN_POS, OPEN_POS, OPEN_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
+				BACK_ROW_CLOSE_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
+				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
 const NOTE note_a = { .name = NOTE_A, .central_freq = CTR_FREQ[5],
-		.holes_to_play = { CLOSE_POS, CLOSE_POS, CLOSE_POS, OPEN_POS, OPEN_POS,
-				OPEN_POS, OPEN_POS, OPEN_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
+				BACK_ROW_OPEN_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
+				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
 const NOTE note_c2 = { .name = NOTE_C2, .central_freq = CTR_FREQ[6],
-		.holes_to_play = { OPEN_POS, CLOSE_POS, OPEN_POS, OPEN_POS, OPEN_POS,
-				OPEN_POS, OPEN_POS, OPEN_POS } };
+		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_OPEN_POS,
+				BACK_ROW_OPEN_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
+				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
 const NOTE note_bb = { .name = NOTE_BB, .central_freq = CTR_FREQ[7],
-		.holes_to_play = { CLOSE_POS, OPEN_POS, OPEN_POS, OPEN_POS, OPEN_POS,
-				OPEN_POS, OPEN_POS, OPEN_POS } };
+		.holes_to_play = { FRONT_ROW_OPEN_POS, FRONT_ROW_OPEN_POS,
+				BACK_ROW_OPEN_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
+				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
 
 const NOTE all_notes[8] = { note_c, note_d, note_e, note_f, note_g, note_a,
 		note_c2, note_bb };
 
 NOTE_NAME current_note = NOTE_C;
+uint32_t current_note_index = 0;
 
 /* USER CODE END PV */
 
@@ -140,6 +141,10 @@ void calibrate_antenna();
 void print_to_com_port();
 bool is_in_range(int lower_limit, int upper_limit, int number);
 void play_music();
+void play_all_notes();
+void play_all_notes_with_delay();
+void test_servos();
+void play_note(uint32_t note_to_play_index);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -183,31 +188,29 @@ int main(void) {
 
 	TIM1->CCR1 = 50;
 	//Frequency measurement on TIM1_CHANNEL_1
-	HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+	//HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1); //dead pin
+	HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
 
-	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1); //closest to AIR (FIRST)
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
 	HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_4);
 
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
-	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
+	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3); //closest to END (LAST)
 	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
-	//HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-
-	HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
 
 	//Initialize ALL servo-motor positions to closed
-	htim3.Instance->CCR1 = CLOSE_POS;
-	htim3.Instance->CCR2 = CLOSE_POS;
-	htim3.Instance->CCR3 = CLOSE_POS;
-	htim3.Instance->CCR4 = CLOSE_POS;
+	htim3.Instance->CCR1 = FRONT_ROW_CLOSE_POS;
+	htim3.Instance->CCR2 = FRONT_ROW_CLOSE_POS;
+	htim3.Instance->CCR3 = BACK_ROW_CLOSE_POS;
+	htim3.Instance->CCR4 = FRONT_ROW_CLOSE_POS;
 
-	htim4.Instance->CCR1 = CLOSE_POS;
-	htim4.Instance->CCR2 = CLOSE_POS;
-	htim4.Instance->CCR3 = CLOSE_POS;
-	htim4.Instance->CCR4 = CLOSE_POS;
+	htim4.Instance->CCR1 = BACK_ROW_CLOSE_POS;
+	htim4.Instance->CCR2 = FRONT_ROW_CLOSE_POS;
+	htim4.Instance->CCR3 = BACK_ROW_CLOSE_POS;
+	//htim4.Instance->CCR4 = CLOSE_POS;
 
 	/* USER CODE END 2 */
 
@@ -217,19 +220,24 @@ int main(void) {
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
+		//TEST PHASE
+		//play_all_notes();
+		//play_all_notes_with_delay();
+		//test_servos();
 		//If switch is in calibrating position, then calibrate antenna.
-		if (HAL_GPIO_ReadPin(B12_SWITCH_GPIO_Port, B12_SWITCH_Pin)
-				== GPIO_PIN_SET) {
-			calibrate_antenna();
+		/*	if (HAL_GPIO_ReadPin(B12_SWITCH_GPIO_Port, B12_SWITCH_Pin)
+		 == GPIO_PIN_SET) {
+		 calibrate_antenna();
+		 print_to_com_port();
+		 }
+		 //Play instrument
+		 else {*/
+		HAL_GPIO_WritePin(GPIOB, B14_GREEN_PITCH_LED_Pin, GPIO_PIN_RESET);
+		HAL_GPIO_WritePin(GPIOB, B13_RED_PITCH_LED_Pin, GPIO_PIN_RESET);
+		if (finished_one_measurement == 1) {
+			play_music();
 			print_to_com_port();
-		}
-		//Play instrument
-		else {
-			HAL_GPIO_WritePin(GPIOB, B14_GREEN_PITCH_LED_Pin, GPIO_PIN_RESET);
-			HAL_GPIO_WritePin(GPIOB, B13_RED_PITCH_LED_Pin, GPIO_PIN_RESET);
-			if (finished_one_measurement == 1) {
-				play_music();
-			}
+			//}
 		}
 
 	}
@@ -345,15 +353,15 @@ static void MX_TIM2_Init(void) {
 
 	TIM_ClockConfigTypeDef sClockSourceConfig = { 0 };
 	TIM_MasterConfigTypeDef sMasterConfig = { 0 };
-	TIM_OC_InitTypeDef sConfigOC = { 0 };
+	TIM_IC_InitTypeDef sConfigIC = { 0 };
 
 	/* USER CODE BEGIN TIM2_Init 1 */
 
 	/* USER CODE END TIM2_Init 1 */
 	htim2.Instance = TIM2;
-	htim2.Init.Prescaler = 1440 - 1;
+	htim2.Init.Prescaler = 0;
 	htim2.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim2.Init.Period = 1000 - 1;
+	htim2.Init.Period = 65536 - 1;
 	htim2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim2.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim2) != HAL_OK) {
@@ -363,7 +371,7 @@ static void MX_TIM2_Init(void) {
 	if (HAL_TIM_ConfigClockSource(&htim2, &sClockSourceConfig) != HAL_OK) {
 		Error_Handler();
 	}
-	if (HAL_TIM_PWM_Init(&htim2) != HAL_OK) {
+	if (HAL_TIM_IC_Init(&htim2) != HAL_OK) {
 		Error_Handler();
 	}
 	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
@@ -372,30 +380,16 @@ static void MX_TIM2_Init(void) {
 			!= HAL_OK) {
 		Error_Handler();
 	}
-	sConfigOC.OCMode = TIM_OCMODE_PWM1;
-	sConfigOC.Pulse = 0;
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
-	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
-	if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_1)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_2)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_3)
-			!= HAL_OK) {
-		Error_Handler();
-	}
-	if (HAL_TIM_PWM_ConfigChannel(&htim2, &sConfigOC, TIM_CHANNEL_4)
-			!= HAL_OK) {
+	sConfigIC.ICPolarity = TIM_INPUTCHANNELPOLARITY_RISING;
+	sConfigIC.ICSelection = TIM_ICSELECTION_DIRECTTI;
+	sConfigIC.ICPrescaler = TIM_ICPSC_DIV1;
+	sConfigIC.ICFilter = 0;
+	if (HAL_TIM_IC_ConfigChannel(&htim2, &sConfigIC, TIM_CHANNEL_1) != HAL_OK) {
 		Error_Handler();
 	}
 	/* USER CODE BEGIN TIM2_Init 2 */
 
 	/* USER CODE END TIM2_Init 2 */
-	HAL_TIM_MspPostInit(&htim2);
 
 }
 
@@ -486,9 +480,9 @@ static void MX_TIM4_Init(void) {
 
 	/* USER CODE END TIM4_Init 1 */
 	htim4.Instance = TIM4;
-	htim4.Init.Prescaler = 0;
+	htim4.Init.Prescaler = 1440 - 1;
 	htim4.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim4.Init.Period = 65535;
+	htim4.Init.Period = 1000 - 1;
 	htim4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
 	htim4.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_DISABLE;
 	if (HAL_TIM_Base_Init(&htim4) != HAL_OK) {
@@ -578,80 +572,138 @@ void calibrate_antenna() {
 	if (is_in_range(PITCH_LOWEST_FREQUENCY, PITCH_LOWEST_FREQUENCY + 300,
 			frequency)) {
 		HAL_GPIO_WritePin(GPIOB, B14_GREEN_PITCH_LED_Pin, GPIO_PIN_SET);
-		HAL_Delay(1000);
+		HAL_Delay(10);
 		HAL_GPIO_WritePin(GPIOB, B13_RED_PITCH_LED_Pin, GPIO_PIN_RESET);
-		HAL_Delay(1000);
+		HAL_Delay(10);
 	} else {
 		//Turn OFF GREEN LED, turn ON RED LED for PITCH
 		HAL_GPIO_WritePin(GPIOB, B14_GREEN_PITCH_LED_Pin, GPIO_PIN_RESET);
-		HAL_Delay(1000);
+		HAL_Delay(10);
 		HAL_GPIO_WritePin(GPIOB, B13_RED_PITCH_LED_Pin, GPIO_PIN_SET);
-		HAL_Delay(1000);
+		HAL_Delay(10);
 	}
 
 }
 bool is_in_range(int lower_limit, int upper_limit, int number) {
 	return (lower_limit <= number && number <= upper_limit);
 }
-void play_note(NOTE_NAME note_to_play) {
-	htim3.Instance->CCR1 = all_notes[note_to_play].holes_to_play[0];
-	htim3.Instance->CCR2 = all_notes[note_to_play].holes_to_play[1];
-	htim3.Instance->CCR3 = all_notes[note_to_play].holes_to_play[2];
-	htim3.Instance->CCR4 = all_notes[note_to_play].holes_to_play[3];
 
-	htim4.Instance->CCR1 = all_notes[note_to_play].holes_to_play[4];
-	htim4.Instance->CCR2 = all_notes[note_to_play].holes_to_play[5];
-	htim4.Instance->CCR3 = all_notes[note_to_play].holes_to_play[6];
-	htim4.Instance->CCR4 = all_notes[note_to_play].holes_to_play[7];
+void play_note(uint32_t note_to_play_index) {
+	//HAL_TIM_IC_Stop_IT(&htim1, TIM_CHANNEL_1);
+	//HAL_TIM_IC_Stop_IT(&htim2, TIM_CHANNEL_1);
+	//is_first_captured = 0;
+
+	htim3.Instance->CCR1 = all_notes[note_to_play_index].holes_to_play[0];
+	htim3.Instance->CCR2 = all_notes[note_to_play_index].holes_to_play[1];
+	htim3.Instance->CCR3 = all_notes[note_to_play_index].holes_to_play[2];
+	htim3.Instance->CCR4 = all_notes[note_to_play_index].holes_to_play[3];
+
+	htim4.Instance->CCR1 = all_notes[note_to_play_index].holes_to_play[4];
+	htim4.Instance->CCR2 = all_notes[note_to_play_index].holes_to_play[5];
+	htim4.Instance->CCR3 = all_notes[note_to_play_index].holes_to_play[6];
+
+	//SHORT DELAY
+	HAL_Delay(2000);
+	//HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
+	//HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
+}
+void test_servos() {
+	/*	for (int i = 25; i<=100; i=i+20){
+
+	 htim3.Instance->CCR1 = OPEN_POS;
+	 htim3.Instance->CCR2 = OPEN_POS;
+	 htim3.Instance->CCR3 = OPEN_POS;
+	 htim3.Instance->CCR4 = OPEN_POS;
+
+	 htim4.Instance->CCR1 = OPEN_POS;
+	 htim4.Instance->CCR2 = OPEN_POS;
+	 htim4.Instance->CCR3 = OPEN_POS;
+	 HAL_Delay(500);
+	 }
+	 */
+
+	htim3.Instance->CCR1 = FRONT_ROW_CLOSE_POS;
+	htim3.Instance->CCR2 = FRONT_ROW_CLOSE_POS;
+	htim3.Instance->CCR3 = BACK_ROW_CLOSE_POS;
+	htim3.Instance->CCR4 = FRONT_ROW_CLOSE_POS;
+
+	htim4.Instance->CCR1 = BACK_ROW_CLOSE_POS;
+	htim4.Instance->CCR2 = FRONT_ROW_CLOSE_POS;
+	htim4.Instance->CCR3 = BACK_ROW_CLOSE_POS;
+	HAL_Delay(100);
+
+	htim3.Instance->CCR1 = FRONT_ROW_OPEN_POS;
+	htim3.Instance->CCR2 = FRONT_ROW_OPEN_POS;
+	htim3.Instance->CCR3 = BACK_ROW_OPEN_POS;
+	htim3.Instance->CCR4 = FRONT_ROW_OPEN_POS;
+
+	htim4.Instance->CCR1 = BACK_ROW_OPEN_POS;
+	htim4.Instance->CCR2 = FRONT_ROW_OPEN_POS;
+	htim4.Instance->CCR3 = BACK_ROW_OPEN_POS;
+	HAL_Delay(100);
+}
+void play_all_notes() {
+	for (int i = 0; i < 7; i++) {
+		play_note(i);
+	}
+}
+void play_all_notes_with_delay() {
+	for (int i = 0; i < 7; i++) {
+		play_note(i);
+		HAL_Delay(2000);
+	}
 }
 void play_music() {
 	const uint32_t DWN = 50;
 	const uint32_t UP = 50;
+	current_note_index = 0;
 
+	if (frequency < (CTR_FREQ[0] - 500)) {
+		return;
+	}
 	/*== NOTE C ==*/
-	if (is_in_range(CTR_FREQ[0] - DWN, CTR_FREQ[0] + UP, frequency) == true) {
+	else if (is_in_range(CTR_FREQ[0] - DWN, CTR_FREQ[0] + UP, frequency) == true) {
 		current_note = NOTE_C;
-		play_note(NOTE_C);
-
+		current_note_index = 0;
 	}
 	/*== NOTE D ==*/
 	else if (is_in_range(CTR_FREQ[1] - DWN, CTR_FREQ[1] + UP, frequency) == true) {
 		current_note = NOTE_D;
-		play_note(NOTE_D);
+		current_note_index = 1;
 	}
 	/*== NOTE E ==*/
 	else if (is_in_range(CTR_FREQ[2] - DWN, CTR_FREQ[2] + UP, frequency) == true) {
 		current_note = NOTE_E;
-		play_note(NOTE_E);
+		current_note_index = 2;
 	}
 	/*== NOTE F ==*/
 	else if (is_in_range(CTR_FREQ[3] - DWN, CTR_FREQ[3] + UP, frequency) == true) {
 		current_note = NOTE_F;
-		play_note(NOTE_F);
+		current_note_index = 3;
 	}
 	/*== NOTE G ==*/
 	else if (is_in_range(CTR_FREQ[4] - DWN, CTR_FREQ[4] + UP, frequency) == true) {
 		current_note = NOTE_G;
-		play_note(NOTE_G);
+		current_note_index = 4;
 	}
 	/*== NOTE A ==*/
 	else if (is_in_range(CTR_FREQ[5] - DWN, CTR_FREQ[5] + UP, frequency) == true) {
 		current_note = NOTE_A;
-		play_note(NOTE_A);
+		current_note_index = 5;
 	}
 	/*== NOTE C2 ==*/
 	else if (is_in_range(CTR_FREQ[6] - DWN, CTR_FREQ[6] + UP, frequency) == true) {
 		current_note = NOTE_C2;
-		play_note(NOTE_C2);
+		current_note_index = 6;
 	}
 	/*== NOTE BB ==*/
 	else if (is_in_range(CTR_FREQ[7] - DWN, CTR_FREQ[7] + UP, frequency) == true) {
 		current_note = NOTE_BB;
-		play_note(NOTE_BB);
-	} else {
-
-		play_note(current_note);
+		current_note_index = 7;
 	}
+
+	play_note(current_note_index);
+
 }
 void print_to_com_port() {
 	char buffer[100];
@@ -660,10 +712,10 @@ void print_to_com_port() {
 	CDC_Transmit_FS((uint8_t*) buffer, strlen(buffer));
 
 }
-void print_note_to_com_port(){
+void print_note_to_com_port() {
 	char buffer[50];
-		sprintf(buffer, "%%lu \r\n", all_notes[current_note]);
-		CDC_Transmit_FS((uint8_t*) buffer, strlen(buffer));
+	sprintf(buffer, "%%lu \r\n", all_notes[current_note]);
+	CDC_Transmit_FS((uint8_t*) buffer, strlen(buffer));
 }
 void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim) {
 	if (htim == &htim1) {
