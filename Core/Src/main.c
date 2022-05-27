@@ -81,11 +81,11 @@ const uint32_t CTR_FREQ[8] = { 2150, 2450, 2750, 3050, 3350, 3650, 3950, 4250 };
 
 uint32_t pitch_val = { 0 };
 
-const uint32_t BACK_ROW_CLOSE_POS = 40;
-const uint32_t BACK_ROW_OPEN_POS = 25;
+const uint32_t BACK_ROW_CLOSE_POS = 25;
+const uint32_t BACK_ROW_OPEN_POS = 40;
 
-const uint32_t FRONT_ROW_CLOSE_POS = 25;
-const uint32_t FRONT_ROW_OPEN_POS = 40;
+const uint32_t FRONT_ROW_CLOSE_POS = 40;
+const uint32_t FRONT_ROW_OPEN_POS = 25;
 
 //Hard coded notes to play
 const NOTE note_c = { .name = NOTE_C, .central_freq = CTR_FREQ[0],
@@ -112,17 +112,18 @@ const NOTE note_a = { .name = NOTE_A, .central_freq = CTR_FREQ[5],
 		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_CLOSE_POS,
 				BACK_ROW_OPEN_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
 				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
-const NOTE note_c2 = { .name = NOTE_C2, .central_freq = CTR_FREQ[6],
+/*Without thumb, this is the same as note A
+ * const NOTE note_c2 = { .name = NOTE_C2, .central_freq = CTR_FREQ[6],
 		.holes_to_play = { FRONT_ROW_CLOSE_POS, FRONT_ROW_OPEN_POS,
 				BACK_ROW_OPEN_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
-				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
+				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };*/
 const NOTE note_bb = { .name = NOTE_BB, .central_freq = CTR_FREQ[7],
 		.holes_to_play = { FRONT_ROW_OPEN_POS, FRONT_ROW_OPEN_POS,
 				BACK_ROW_OPEN_POS, FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS,
 				FRONT_ROW_OPEN_POS, BACK_ROW_OPEN_POS } };
 
-const NOTE all_notes[8] = { note_c, note_d, note_e, note_f, note_g, note_a,
-		note_c2, note_bb };
+const NOTE all_notes[7] = { note_c, note_d, note_e, note_f, note_g, note_a,
+		 note_bb };
 
 NOTE_NAME current_note = NOTE_C;
 uint32_t current_note_index = 0;
@@ -232,8 +233,8 @@ int main(void) {
 		 }
 		 //Play instrument
 		 else {*/
-		HAL_GPIO_WritePin(GPIOB, B14_GREEN_PITCH_LED_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(GPIOB, B13_RED_PITCH_LED_Pin, GPIO_PIN_RESET);
+		//HAL_GPIO_WritePin(GPIOB, B14_GREEN_PITCH_LED_Pin, GPIO_PIN_RESET);
+		//HAL_GPIO_WritePin(GPIOB, B13_RED_PITCH_LED_Pin, GPIO_PIN_RESET);
 		if (finished_one_measurement == 1) {
 			play_music();
 			print_to_com_port();
@@ -603,7 +604,7 @@ void play_note(uint32_t note_to_play_index) {
 	htim4.Instance->CCR3 = all_notes[note_to_play_index].holes_to_play[6];
 
 	//SHORT DELAY
-	HAL_Delay(2000);
+	HAL_Delay(200);
 	//HAL_TIM_IC_Start_IT(&htim1, TIM_CHANNEL_1);
 	//HAL_TIM_IC_Start_IT(&htim2, TIM_CHANNEL_1);
 }
@@ -654,15 +655,14 @@ void play_all_notes_with_delay() {
 	}
 }
 void play_music() {
-	const uint32_t DWN = 50;
-	const uint32_t UP = 50;
-	current_note_index = 0;
+	const uint32_t DWN = 100;
+	const uint32_t UP = 100;
 
-	if (frequency < (CTR_FREQ[0] - 500)) {
+	/*if (frequency < (CTR_FREQ[0] - 500)) {
 		return;
-	}
+	}*/
 	/*== NOTE C ==*/
-	else if (is_in_range(CTR_FREQ[0] - DWN, CTR_FREQ[0] + UP, frequency) == true) {
+	if (is_in_range(CTR_FREQ[0] - DWN, CTR_FREQ[0] + UP, frequency) == true) {
 		current_note = NOTE_C;
 		current_note_index = 0;
 	}
@@ -691,15 +691,10 @@ void play_music() {
 		current_note = NOTE_A;
 		current_note_index = 5;
 	}
-	/*== NOTE C2 ==*/
-	else if (is_in_range(CTR_FREQ[6] - DWN, CTR_FREQ[6] + UP, frequency) == true) {
-		current_note = NOTE_C2;
-		current_note_index = 6;
-	}
 	/*== NOTE BB ==*/
 	else if (is_in_range(CTR_FREQ[7] - DWN, CTR_FREQ[7] + UP, frequency) == true) {
 		current_note = NOTE_BB;
-		current_note_index = 7;
+		current_note_index = 6;
 	}
 
 	play_note(current_note_index);
